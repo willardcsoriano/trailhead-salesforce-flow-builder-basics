@@ -1,16 +1,29 @@
 # Trailhead Salesforce Flow Builder Basics
 
-This repository tracks Salesforce metadata changes for the **Flow Builder Basics** Trailhead module.
+This repository tracks Salesforce org metadata changes and documentation for the **Flow Builder Basics** module on Trailhead.
 
-## Quick Start & Onboarding
+---
 
-Refer to the [Onboarding Guide](docs/ONBOARDING.md) for instructions on connecting your Trailhead Playground, retrieving metadata, and managing pull requests.
+## Module Overview
 
-## Metadata Retrieval Command
+| Unit | Title | Status | Documentation |
+| :--- | :--- | :--- | :--- |
+| **Unit 01** | Get Started with Business Process Automation | Completed | [unit-1-raw.md](docs/unit-1-raw.md) |
+| **Unit 02** | Go with the Flow | Completed | [unit-2-raw.md](docs/unit-2-raw.md) |
+| **Unit 03** | Meet Flow Builder | Completed | [unit-3-raw.md](docs/unit-3-raw.md) |
+| **Unit 04** | Learn About Flow Variables | In Progress | [unit-4-raw.md](docs/unit-4-raw.md) |
 
-Use the following command to regenerate the manifest from your org, retrieve metadata, and write a JSON audit log to `docs/`:
+---
 
-```bash
-sf project generate manifest --from-org trailhead-playground --output-dir manifest && CMD="sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground --json" && $CMD | jq --arg command "$CMD" --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" --arg branch "$(git branch --show-current)" '{command: $command, timestamp: $timestamp, branch: $branch, result: .}' > docs/unit-04-retrieval-log.json
-```
+## Repository Structure
+
+- `force-app/`: Salesforce DX source code and metadata retrieved from the target org.
+- `manifest/`: Project manifest (`package.xml`) defining retrieved metadata components.
+- `docs/`: Module raw documentation dumps, onboarding guides, and retrieval logs.
+
+---
+
+## Onboarding & Workflow Guide
+
+For step-by-step instructions on connecting your Trailhead Playground org, regenerating project manifests, retrieving metadata with JSON audit logging, and submitting Pull Requests, refer to the [Onboarding Guide](docs/ONBOARDING.md).
 
