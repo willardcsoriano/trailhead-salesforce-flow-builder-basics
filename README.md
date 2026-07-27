@@ -12,12 +12,10 @@ Use the following command to retrieve org metadata, capture execution context (c
 
 ```bash
 CMD="sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground --json" && \
-RESULT=$($CMD) && \
-jq -n \
+$CMD | jq \
   --arg command "$CMD" \
   --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
   --arg branch "$(git branch --show-current)" \
-  --argjson result "$RESULT" \
-  '{command: $command, timestamp: $timestamp, branch: $branch, result: $result}' > docs/unit-04-retrieval-log.json
+  '{command: $command, timestamp: $timestamp, branch: $branch, result: .}' > docs/unit-04-retrieval-log.json
 ```
 
