@@ -65,12 +65,7 @@ git checkout -b unit-0X-<unit-title-slug>
 After completing guided activities or hands-on challenges in the Salesforce Setup GUI, run the retrieval command to fetch metadata and log execution audit context to `docs/`:
 
 ```bash
-CMD="sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground --json" && \
-$CMD | jq \
-  --arg command "$CMD" \
-  --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-  --arg branch "$(git branch --show-current)" \
-  '{command: $command, timestamp: $timestamp, branch: $branch, result: .}' > docs/unit-04-retrieval-log.json
+CMD="sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground --json" && $CMD | jq --arg command "$CMD" --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" --arg branch "$(git branch --show-current)" '{command: $command, timestamp: $timestamp, branch: $branch, result: .}' > docs/unit-04-retrieval-log.json
 ```
 
 ### Step 3.3: Commit and Submit Pull Request
