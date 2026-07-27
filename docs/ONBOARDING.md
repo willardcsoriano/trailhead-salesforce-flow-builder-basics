@@ -61,11 +61,18 @@ git pull origin master
 git checkout -b unit-0X-<unit-title-slug>
 ```
 
-### Step 3.2: Retrieve Unit Metadata
-After completing guided activities or hands-on challenges in the Salesforce Setup GUI:
+### Step 3.2: Retrieve Unit Metadata & Audit Logging
+After completing guided activities or hands-on challenges in the Salesforce Setup GUI, run the retrieval command to fetch metadata and log execution audit context to `docs/`:
 
 ```bash
-sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground
+CMD="sf project retrieve start --manifest manifest/package.xml --target-org trailhead-playground --json" && \
+RESULT=$($CMD) && \
+jq -n \
+  --arg command "$CMD" \
+  --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
+  --arg branch "$(git branch --show-current)" \
+  --argjson result "$RESULT" \
+  '{command: $command, timestamp: $timestamp, branch: $branch, result: $result}' > docs/unit-04-retrieval-log.json
 ```
 
 ### Step 3.3: Commit and Submit Pull Request
